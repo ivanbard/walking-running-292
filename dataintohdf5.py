@@ -4,46 +4,58 @@ import pandas as pd
 members = {
     "armaan": {
         "jumping": {
-            "run_1": "member1/jumping/run_1/raw data.csv",
-            "run_2": "member1/jumping/run_2/raw data.csv",
+            "run_1": "raw-data/armaan/jumping/jump left back/Raw Data.csv",
+            "run_2": "raw-data/armaan/jumping/jump left hand/Raw Data.csv",
+            "run_3": "raw-data/armaan/jumping/jump left pocket/Raw Data.csv",
+            "run_4": "raw-data/armaan/jumping/jump right back/Raw Data.csv",
+            "run_5": "raw-data/armaan/jumping/jump right hand/Raw Data.csv",
+            "run_6": "raw-data/armaan/jumping/jump right pocket/Raw Data.csv",
         },
         "walking": {
-            "run_1": "member1/walking/run_1/raw data.csv",
-            "run_2": "member1/walking/run_2/raw data.csv",
+            "run_1": "raw-data/armaan/walking/walk left back/Raw Data.csv",
+            "run_2": "raw-data/armaan/walking/walk left hand/Raw Data.csv",
+            "run_3": "raw-data/armaan/walking/walk left pocket/Raw Data.csv",
+            "run_4": "raw-data/armaan/walking/walk right back/Raw Data.csv",
+            "run_5": "raw-data/armaan/walking/walk right hand/Raw Data.csv",
+            "run_6": "raw-data/armaan/walking/walk right pocket/Raw Data.csv",
         }
     },
     "ivan": {
         "jumping": {
-            "run_1": "ivan/jumping/jumping back left pocket/Raw Data.csv",
-            "run_2": "ivan/jumping/jumping back right pocket/Raw Data.csv",
-            "run_3": "ivan/jumping/jumping left front pocket - may need redoing/Raw Data.csv",
-            "run_4": "ivan/jumping/jumping left hand vertical/Raw Data.csv",
-            "run_5": "ivan/jumping/jumping right hand vertical/Raw Data.csv",
-            "run_6": "ivan/jumping/jumping right pocket/Raw Data.csv",
+            "run_1": "raw-data/ivan/jumping/jumping back left pocket/Raw Data.csv",
+            "run_2": "raw-data/ivan/jumping/jumping back right pocket/Raw Data.csv",
+            "run_3": "raw-data/ivan/jumping/jumping left front pocket - may need redoing/Raw Data.csv",
+            "run_4": "raw-data/ivan/jumping/jumping left hand vertical/Raw Data.csv",
+            "run_5": "raw-data/ivan/jumping/jumping right hand vertical/Raw Data.csv",
+            "run_6": "raw-data/ivan/jumping/jumping right pocket/Raw Data.csv",
         },
         "walking": {
-            "run_1": "ivan/walking/walking back left pocket/Raw Data.csv",
-            "run_2": "ivan/walking/walking back right pocket/Raw Data.csv",
-            "run_3": "ivan/walking/walking left front pocket/Raw Data.csv",
-            "run_4": "ivan/walking/walking left hand vertical/Raw Data.csv",
-            "run_5": "ivan/walking/walking right hand vertical/Raw Data.csv",
-            "run_6": "ivan/walking/walking right pocket/Raw Data.csv",
+            "run_1": "raw-data/ivan/walking/walking back left pocket/Raw Data.csv",
+            "run_2": "raw-data/ivan/walking/walking back right pocket/Raw Data.csv",
+            "run_3": "raw-data/ivan/walking/walking left front pocket/Raw Data.csv",
+            "run_4": "raw-data/ivan/walking/walking left hand vertical/Raw Data.csv",
+            "run_5": "raw-data/ivan/walking/walking right hand vertical/Raw Data.csv",
+            "run_6": "raw-data/ivan/walking/walking right pocket/Raw Data.csv",
         }
     },
     "letchu": {
         "jumping": {
-            "run_1": "member3/jumping/run_1/raw data.csv",
-            "run_2": "member3/jumping/run_2/raw data.csv",
+            "run_1": "raw-data/letchu/jumping/jump left hand/Raw Data.csv",
+            "run_2": "raw-data/letchu/jumping/jump left pocket/Raw Data.csv",
+            "run_3": "raw-data/letchu/jumping/jump right hand/Raw Data.csv",
+            "run_4": "raw-data/letchu/jumping/jump right pocket/Raw Data.csv",
         },
         "walking": {
-            "run_1": "member3/walking/run_1/raw data.csv",
-            "run_2": "member3/walking/run_2/raw data.csv",
+            "run_1": "raw-data/letchu/walking/walk left hand/Raw Data.csv",
+            "run_2": "raw-data/letchu/walking/walk left pocket/Raw Data.csv",
+            "run_3": "raw-data/letchu/walking/walk right hand/Raw Data.csv",
+            "run_4": "raw-data/letchu/walking/walk right pocket/Raw Data.csv",
         }
     }
 }
 
 
-with h5py.File("my_dataset.hdf5", "w") as h5f:
+with h5py.File("raw_dataset.hdf5", "w") as h5f:
     raw_data_group = h5f.create_group("Raw data")
     
     for member_name, activities in members.items():
