@@ -55,7 +55,7 @@ members = {
 }
 
 
-with h5py.File("raw_dataset.hdf5", "w") as h5f:
+with h5py.File("dataset.hdf5", "w") as h5f:
     raw_data_group = h5f.create_group("Raw data")
     
     for member_name, activities in members.items():
@@ -72,3 +72,17 @@ with h5py.File("raw_dataset.hdf5", "w") as h5f:
                 
                 dset = run_group.create_dataset("raw data", data=data_array)
                 dset.attrs["column_names"] = df.columns.tolist() #save column names
+
+
+def print_hdf5_structure(group, indent=0): #used for checking h5 file structure
+    for key in group.keys():
+        item = group[key]
+        if isinstance(item, h5py.Group):
+            print("    " * indent + f"Group: {key}")
+            print_hdf5_structure(item, indent + 1)
+        else:
+            print("    " * indent + f"Dataset: {key}, shape: {item.shape}, dtype: {item.dtype}")
+
+with h5py.File("dataset.hdf5", "r") as h5f:
+    print("HDF5 file structure:")
+    print_hdf5_structure(h5f)
