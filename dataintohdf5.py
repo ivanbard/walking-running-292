@@ -68,6 +68,11 @@ with h5py.File("dataset.hdf5", "w") as h5f:
                 run_group = activity_group.create_group(run_name)
                 
                 df = pd.read_csv(csv_path)
+
+                #add filter to keep all runs to 45 seconds
+                if "Time (s)" in df.columns:
+                    df = df[df["Time (s)"] <= 45]
+
                 data_array = df.to_numpy()
                 
                 dset = run_group.create_dataset("raw data", data=data_array)
