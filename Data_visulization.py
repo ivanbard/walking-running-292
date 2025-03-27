@@ -1,42 +1,38 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import h5py
 
-# Load all 6 CSV files
-jumping_jackson = pd.read_csv("Armaan_Jumping_Left_Pocket.csv")
-walking_jackson = pd.read_csv("Armaan_Walking_Left_Pocket.csv")
+all_dfs = []
+hdf5_file = "dataset.hdf5"
 
-jumping_general = pd.read_csv("Ivan_Jumping_Left_Pocket.csv")
-walking_general = pd.read_csv("Ivan_Walking_Left_Pocket.csv")
+with h5py.File(hdf5_file, "r") as h5f:
+    raw_group = h5f["Raw data"]
+    
+    #go through all the members
+    for member in raw_group.keys():
+        member_group = raw_group[member]
+        
+        #go through all the activities
+        for activity in member_group.keys():
+            activity_group = member_group[activity]
+            
+            #go through all the run folders
+            for run in activity_group.keys():
+                run_group = activity_group[run]
+                
+                dset = run_group["raw data"] #load dataset
+                columns = dset.attrs["column_names"]
+                
+                df = pd.DataFrame(dset[...], columns=columns)
+                df.columns = df.columns.str.strip()
+                
+                df["Activity"] = activity.capitalize() #capitalize activity labels
+                df["Person"] = member 
+                
+                all_dfs.append(df)
 
-jumping_pri = pd.read_csv("Letchu_Jumping_Left_Pocket.csv")
-walking_pri = pd.read_csv("Letchu_Walking_Left_Pocket.csv")
-
-# Clean column names
-for df in [jumping_jackson, walking_jackson, jumping_general, walking_general, jumping_pri, walking_pri]:
-    df.columns = df.columns.str.strip()
-
-# Add labels for activity & person
-jumping_jackson["Activity"] = "Jumping"
-walking_jackson["Activity"] = "Walking"
-
-jumping_general["Activity"] = "Jumping"
-walking_general["Activity"] = "Walking"
-
-jumping_pri["Activity"] = "Jumping"
-walking_pri["Activity"] = "Walking"
-
-jumping_jackson["Person"] = "Jackson"
-walking_jackson["Person"] = "Jackson"
-
-jumping_general["Person"] = "General"
-walking_general["Person"] = "General"
-
-jumping_pri["Person"] = "Pri"
-walking_pri["Person"] = "Pri"
-
-# Combine all datasets
-df_combined = pd.concat([jumping_jackson, walking_jackson, jumping_general, walking_general, jumping_pri, walking_pri])
+df_combined = pd.concat(all_dfs, ignore_index=True)
 
 # Select relevant columns
 acceleration_columns = ["Linear Acceleration x (m/s^2)", "Linear Acceleration y (m/s^2)", "Linear Acceleration z (m/s^2)"]
