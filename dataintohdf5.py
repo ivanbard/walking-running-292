@@ -69,7 +69,7 @@ with h5py.File("dataset.hdf5", "w") as h5f:
                 
                 df = pd.read_csv(csv_path)
 
-                #filter to limit runs to 45s
+                #add filter to keep all runs to 45 seconds
                 if "Time (s)" in df.columns:
                     df = df[df["Time (s)"] <= 45]
 
