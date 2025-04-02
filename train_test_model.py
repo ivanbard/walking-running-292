@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, roc_curve, auc
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, roc_curve, RocCurveDisplay, auc
+import pickle
 
 def load_df_from_hdf5(group):
     dset = group["features"]
@@ -44,6 +45,7 @@ print("Test Accuracy:", accuracy)
 
 #confusion matrix
 cm = confusion_matrix(y_test, y_pred)
+cm_disp = ConfusionMatrixDisplay(cm).plot()
 print("Confusion Matrix:")
 print(cm)
 
@@ -61,3 +63,6 @@ plt.title("ROC Curve")
 plt.legend()
 plt.grid(True)
 plt.show()
+
+with open("model.pkl", "wb") as model_file:
+    pickle.dump(clf, model_file)

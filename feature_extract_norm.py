@@ -4,6 +4,7 @@ import numpy as np
 from scipy.stats import skew, kurtosis
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import GroupShuffleSplit
+import pickle
 
 def extract_features(df): #find features in segments
     features = {}
@@ -121,3 +122,6 @@ with h5py.File(hdf5_file, "r+") as h5f:
     store_df_as_hdf5(test_df, test_group, "features")
     
     print("Train and test feature sets stored under 'Segmented data' group")
+
+with open("scaler.pkl", "wb") as scaler_file:
+    pickle.dump(scaler, scaler_file)
