@@ -129,6 +129,9 @@ class MainWindow(QMainWindow):
             "The application will segment the data into 5-second windows, extract features, "
             "and then classify the data as <b>Walking</b> or <b>Jumping</b>.</p>"
             "<p>Make sure your CSV contains a <i>Time (s)</i> column along with the sensor data.</p>"
+            "<p>   </p>"
+            "<p>You will be prompted to choose a location to save your output file after selecting"
+            " a CSV. The programs output will be displayed after choosing a save location.</p>"
         )
         instructions.setWordWrap(True)
         self.layout.addWidget(instructions)
