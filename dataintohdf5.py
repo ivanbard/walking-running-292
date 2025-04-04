@@ -44,12 +44,16 @@ members = {
             "run_2": "raw-data/letchu/jumping/jump left pocket/Raw Data.csv",
             "run_3": "raw-data/letchu/jumping/jump right hand/Raw Data.csv",
             "run_4": "raw-data/letchu/jumping/jump right pocket/Raw Data.csv",
+            "run_5": "raw-data/letchu/jumping/jump right back pocket/Raw Data.csv",
+            "run_6": "raw-data/letchu/jumping/jump back left pocket/Raw Data.csv",
         },
         "walking": {
             "run_1": "raw-data/letchu/walking/walk left hand/Raw Data.csv",
             "run_2": "raw-data/letchu/walking/walk left pocket/Raw Data.csv",
             "run_3": "raw-data/letchu/walking/walk right hand/Raw Data.csv",
             "run_4": "raw-data/letchu/walking/walk right pocket/Raw Data.csv",
+            "run_5": "raw-data/letchu/walking/walk right back pocket/Raw Data.csv",
+            "run_6": "raw-data/letchu/walking/walk left back pocket/Raw Data.csv",
         }
     }
 }
