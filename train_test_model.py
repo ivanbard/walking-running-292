@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, roc_curve, RocCurveDisplay, auc
 import pickle
+from sklearn.model_selection import learning_curve, ShuffleSplit
 
 def load_df_from_hdf5(group):
     dset = group["features"]
@@ -61,6 +62,38 @@ plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.title("ROC Curve")
 plt.legend()
+plt.grid(True)
+plt.show()
+
+cv = ShuffleSplit(n_splits=5, test_size=0.2, random_state=42)
+
+#get learning curve
+train_sizes, train_scores, val_scores = learning_curve(
+    clf, X_train, y_train, cv=cv, scoring="accuracy",
+    train_sizes=np.linspace(0.1, 1.0, 10), n_jobs=-1
+)
+
+#calc mean for scores
+train_scores_mean = np.mean(train_scores, axis=1)
+train_scores_std = np.std(train_scores, axis=1)
+val_scores_mean = np.mean(val_scores, axis=1)
+val_scores_std = np.std(val_scores, axis=1)
+
+plt.figure(figsize=(10, 6))
+plt.plot(train_sizes, train_scores_mean, label="Training Accuracy", color="blue")
+plt.fill_between(train_sizes,
+                 train_scores_mean - train_scores_std,
+                 train_scores_mean + train_scores_std,
+                 alpha=0.2, color="blue")
+plt.plot(train_sizes, val_scores_mean, label="Validation Accuracy", color="green")
+plt.fill_between(train_sizes,
+                 val_scores_mean - val_scores_std,
+                 val_scores_mean + val_scores_std,
+                 alpha=0.2, color="green")
+plt.title("Learning Curve")
+plt.xlabel("Training Set Size")
+plt.ylabel("Accuracy")
+plt.legend(loc="best")
 plt.grid(True)
 plt.show()
 
